@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_basePanelMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_basePanel" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+    <result column="BS" property="bs" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE, NAME, CODE, SORT, BS
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null"> 
+      and TYPE = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="name != null"> 
+      and NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="code != null"> 
+      and CODE = #{code,jdbcType=VARCHAR}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    <if test="bs != null"> 
+      and BS = #{bs,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_basePanel" >
+    insert into ui_basepanel(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{type,jdbcType=INTEGER}
+        ,#{name,jdbcType=VARCHAR}
+        ,#{code,jdbcType=VARCHAR}
+        ,#{sort,jdbcType=INTEGER}
+        ,#{bs,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_basePanel" >
+    insert into ui_basepanel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "type != null">
+          ,TYPE
+        </if>
+        <if test = "name != null">
+          ,NAME
+        </if>
+        <if test = "code != null">
+          ,CODE
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+        <if test = "bs != null">
+          ,BS
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "type != null">
+          ,#{type,jdbcType=INTEGER}
+        </if>
+        <if test = "name != null">
+          ,#{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "code != null">
+          ,#{code,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+        <if test = "bs != null">
+          ,#{bs,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_basepanel
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_basepanel
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_basePanel" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_basePanel
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_basePanel"> 
+    update UI_basePanel
+     set
+        <if test = "type != null">
+        TYPE = #{type,jdbcType=INTEGER}
+        </if>
+        <if test = "name != null">
+        ,NAME = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "code != null">
+        ,CODE = #{code,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+        <if test = "bs != null">
+        ,BS = #{bs,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_basePanel"> 
+    update UI_basePanel
+     set
+              TYPE = #{type,jdbcType=INTEGER}
+        ,      NAME = #{name,jdbcType=VARCHAR}
+        ,      CODE = #{code,jdbcType=VARCHAR}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+        ,      BS = #{bs,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

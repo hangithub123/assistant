@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_uicodeStaticCodeMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_uicodeStaticCode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="UICODE_ID" property="uicodeId" jdbcType="VARCHAR" />
+    <result column="STATICODE_ID" property="staticodeId" jdbcType="VARCHAR" />
+    <result column="DATE" property="date" jdbcType="BIGINT" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UICODE_ID, STATICODE_ID, DATE, SORT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="uicodeId != null"> 
+      and UICODE_ID = #{uicodeId,jdbcType=VARCHAR}
+    </if>
+    <if test="staticodeId != null"> 
+      and STATICODE_ID = #{staticodeId,jdbcType=VARCHAR}
+    </if>
+    <if test="date != null"> 
+      and DATE = #{date,jdbcType=BIGINT}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_uicodeStaticCode" >
+    insert into ui_uicode_staticCode(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{uicodeId,jdbcType=VARCHAR}
+        ,#{staticodeId,jdbcType=VARCHAR}
+        ,#{date,jdbcType=BIGINT}
+        ,#{sort,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_uicodeStaticCode" >
+    insert into ui_uicode_staticCode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "uicodeId != null">
+          ,UICODE_ID
+        </if>
+        <if test = "staticodeId != null">
+          ,STATICODE_ID
+        </if>
+        <if test = "date != null">
+          ,DATE
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "uicodeId != null">
+          ,#{uicodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "staticodeId != null">
+          ,#{staticodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "date != null">
+          ,#{date,jdbcType=BIGINT}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_uicode_staticCode
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_uicode_staticCode
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_uicodeStaticCode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_uicodeStaticCode
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_uicodeStaticCode"> 
+    update UI_uicodeStaticCode
+     set
+        <if test = "uicodeId != null">
+        UICODE_ID = #{uicodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "staticodeId != null">
+        ,STATICODE_ID = #{staticodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "date != null">
+        ,DATE = #{date,jdbcType=BIGINT}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_uicodeStaticCode"> 
+    update UI_uicodeStaticCode
+     set
+              UICODE_ID = #{uicodeId,jdbcType=VARCHAR}
+        ,      STATICODE_ID = #{staticodeId,jdbcType=VARCHAR}
+        ,      DATE = #{date,jdbcType=BIGINT}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

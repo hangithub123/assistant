@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 全局setting配置，根据需要添加 -->
+
+	<!-- 配置别名 -->
+	<typeAliases>
+		<!-- 批量扫描别名 -->
+		<package name="pub.po"/>
+	</typeAliases>
+
+	<!-- 分页助手 -->
+	<plugins>
+		<plugin interceptor="pub.util.PagePlugin">
+			<property name="default.page" value="1" />
+			<property name="default.pageSize" value="20" />
+			<property name="default.useFlag" value="true" />
+			<property name="default.checkFlag" value="false" />
+			<property name="default.cleanOrderBy" value="false" />
+		</plugin>
+	</plugins>
+	
+
+</configuration>
+
+	

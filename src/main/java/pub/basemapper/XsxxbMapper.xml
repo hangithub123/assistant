@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.XsxxbMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.Xsxxb" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="XH" property="xh" jdbcType="VARCHAR" />
+    <result column="SFZH" property="sfzh" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="FJ" property="fj" jdbcType="VARCHAR" />
+    <result column="XYBH" property="xybh" jdbcType="VARCHAR" />
+    <result column="ZYBH" property="zybh" jdbcType="VARCHAR" />
+    <result column="ZT" property="zt" jdbcType="INTEGER" />
+    <result column="DLH" property="dlh" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="SYBZ" property="sybz" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, SEX, XH, SFZH, MOBILE, FJ, XYBH, ZYBH, ZT, DLH, EMAIL, SYBZ
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null"> 
+      and NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="sex != null"> 
+      and SEX = #{sex,jdbcType=INTEGER}
+    </if>
+    <if test="xh != null"> 
+      and XH = #{xh,jdbcType=VARCHAR}
+    </if>
+    <if test="sfzh != null"> 
+      and SFZH = #{sfzh,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null"> 
+      and MOBILE = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="fj != null"> 
+      and FJ = #{fj,jdbcType=VARCHAR}
+    </if>
+    <if test="xybh != null"> 
+      and XYBH = #{xybh,jdbcType=VARCHAR}
+    </if>
+    <if test="zybh != null"> 
+      and ZYBH = #{zybh,jdbcType=VARCHAR}
+    </if>
+    <if test="zt != null"> 
+      and ZT = #{zt,jdbcType=INTEGER}
+    </if>
+    <if test="dlh != null"> 
+      and DLH = #{dlh,jdbcType=VARCHAR}
+    </if>
+    <if test="email != null"> 
+      and EMAIL = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="sybz != null"> 
+      and SYBZ = #{sybz,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <sql id="queryWhere1">
+    <where>
+    <if test="record.id != null"> 
+      ID = #{record.id,jdbcType=VARCHAR}
+    </if>
+    <if test="record.name != null"> 
+      and NAME = #{record.name,jdbcType=VARCHAR}
+    </if>
+    <if test="record.sex != null"> 
+      and SEX = #{record.sex,jdbcType=INTEGER}
+    </if>
+    <if test="record.xh != null"> 
+      and XH = #{record.xh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.sfzh != null"> 
+      and SFZH = #{record.sfzh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.mobile != null"> 
+      and MOBILE = #{record.mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="record.fj != null"> 
+      and FJ = #{record.fj,jdbcType=VARCHAR}
+    </if>
+    <if test="record.xybh != null"> 
+      and XYBH = #{record.xybh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.zybh != null"> 
+      and ZYBH = #{record.zybh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.zt != null"> 
+      and ZT = #{record.zt,jdbcType=INTEGER}
+    </if>
+    <if test="record.dlh != null"> 
+      and DLH = #{record.dlh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.email != null"> 
+      and EMAIL = #{record.email,jdbcType=VARCHAR}
+    </if>
+    <if test="record.sybz != null"> 
+      and SYBZ = #{record.sybz,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.Xsxxb" >
+    insert into xsxxb(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{name,jdbcType=VARCHAR}
+        ,#{sex,jdbcType=INTEGER}
+        ,#{xh,jdbcType=VARCHAR}
+        ,#{sfzh,jdbcType=VARCHAR}
+        ,#{mobile,jdbcType=VARCHAR}
+        ,#{fj,jdbcType=VARCHAR}
+        ,#{xybh,jdbcType=VARCHAR}
+        ,#{zybh,jdbcType=VARCHAR}
+        ,#{zt,jdbcType=INTEGER}
+        ,#{dlh,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR}
+        ,#{sybz,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.Xsxxb" >
+    insert into xsxxb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "name != null">
+          ,NAME
+        </if>
+        <if test = "sex != null">
+          ,SEX
+        </if>
+        <if test = "xh != null">
+          ,XH
+        </if>
+        <if test = "sfzh != null">
+          ,SFZH
+        </if>
+        <if test = "mobile != null">
+          ,MOBILE
+        </if>
+        <if test = "fj != null">
+          ,FJ
+        </if>
+        <if test = "xybh != null">
+          ,XYBH
+        </if>
+        <if test = "zybh != null">
+          ,ZYBH
+        </if>
+        <if test = "zt != null">
+          ,ZT
+        </if>
+        <if test = "dlh != null">
+          ,DLH
+        </if>
+        <if test = "email != null">
+          ,EMAIL
+        </if>
+        <if test = "sybz != null">
+          ,SYBZ
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "name != null">
+          ,#{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "sex != null">
+          ,#{sex,jdbcType=INTEGER}
+        </if>
+        <if test = "xh != null">
+          ,#{xh,jdbcType=VARCHAR}
+        </if>
+        <if test = "sfzh != null">
+          ,#{sfzh,jdbcType=VARCHAR}
+        </if>
+        <if test = "mobile != null">
+          ,#{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test = "fj != null">
+          ,#{fj,jdbcType=VARCHAR}
+        </if>
+        <if test = "xybh != null">
+          ,#{xybh,jdbcType=VARCHAR}
+        </if>
+        <if test = "zybh != null">
+          ,#{zybh,jdbcType=VARCHAR}
+        </if>
+        <if test = "zt != null">
+          ,#{zt,jdbcType=INTEGER}
+        </if>
+        <if test = "dlh != null">
+          ,#{dlh,jdbcType=VARCHAR}
+        </if>
+        <if test = "email != null">
+          ,#{email,jdbcType=VARCHAR}
+        </if>
+        <if test = "sybz != null">
+          ,#{sybz,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xsxxb
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from xsxxb
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.Xsxxb" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Xsxxb
+    <include refid="queryWhere"/> 
+  </select> 
+  <select id="queryByExistsWithPage" parameterType="pub.po.Xsxxb" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Xsxxb
+    <include refid="queryWhere1"/> 
+  </select> 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.Xsxxb"> 
+    update Xsxxb
+     set
+        <if test = "name != null">
+        NAME = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "sex != null">
+        ,SEX = #{sex,jdbcType=INTEGER}
+        </if>
+        <if test = "xh != null">
+        ,XH = #{xh,jdbcType=VARCHAR}
+        </if>
+        <if test = "sfzh != null">
+        ,SFZH = #{sfzh,jdbcType=VARCHAR}
+        </if>
+        <if test = "mobile != null">
+        ,MOBILE = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test = "fj != null">
+        ,FJ = #{fj,jdbcType=VARCHAR}
+        </if>
+        <if test = "xybh != null">
+        ,XYBH = #{xybh,jdbcType=VARCHAR}
+        </if>
+        <if test = "zybh != null">
+        ,ZYBH = #{zybh,jdbcType=VARCHAR}
+        </if>
+        <if test = "zt != null">
+        ,ZT = #{zt,jdbcType=INTEGER}
+        </if>
+        <if test = "dlh != null">
+        ,DLH = #{dlh,jdbcType=VARCHAR}
+        </if>
+        <if test = "email != null">
+        ,EMAIL = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test = "sybz != null">
+        ,SYBZ = #{sybz,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.Xsxxb"> 
+    update Xsxxb
+     set
+              NAME = #{name,jdbcType=VARCHAR}
+        ,      SEX = #{sex,jdbcType=INTEGER}
+        ,      XH = #{xh,jdbcType=VARCHAR}
+        ,      SFZH = #{sfzh,jdbcType=VARCHAR}
+        ,      MOBILE = #{mobile,jdbcType=VARCHAR}
+        ,      FJ = #{fj,jdbcType=VARCHAR}
+        ,      XYBH = #{xybh,jdbcType=VARCHAR}
+        ,      ZYBH = #{zybh,jdbcType=VARCHAR}
+        ,      ZT = #{zt,jdbcType=INTEGER}
+        ,      DLH = #{dlh,jdbcType=VARCHAR}
+        ,      EMAIL = #{email,jdbcType=VARCHAR}
+        ,      SYBZ = #{sybz,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

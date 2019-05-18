@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_showuiMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_showui" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SHOWCODE" property="showcode" jdbcType="VARCHAR" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, SHOWCODE, SORT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null"> 
+      and NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="showcode != null"> 
+      and SHOWCODE = #{showcode,jdbcType=VARCHAR}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_showui" >
+    insert into ui_showui(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{name,jdbcType=VARCHAR}
+        ,#{showcode,jdbcType=VARCHAR}
+        ,#{sort,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_showui" >
+    insert into ui_showui
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "name != null">
+          ,NAME
+        </if>
+        <if test = "showcode != null">
+          ,SHOWCODE
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "name != null">
+          ,#{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "showcode != null">
+          ,#{showcode,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_showui
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_showui
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_showui" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_showui
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_showui"> 
+    update UI_showui
+     set
+        <if test = "name != null">
+        NAME = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "showcode != null">
+        ,SHOWCODE = #{showcode,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_showui"> 
+    update UI_showui
+     set
+              NAME = #{name,jdbcType=VARCHAR}
+        ,      SHOWCODE = #{showcode,jdbcType=VARCHAR}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.BaseDaoMapper" >
+<!-- 2019 -01-27 韩伟其 查询 UICODE、SHOWUI 信息返回listMap 开始-->
+  <select id="queryuicodeListMap" resultType="java.util.Map" parameterType="java.util.Map" >
+    select uicode.*,showui.SHOWCODE from ui_uicode uicode,ui_showui showui 
+    <where>
+    	uicode.showui_id = showui.id
+    	<if test="map.uiname!=null">and uicode.uiname like CONCAT('%',#{map.uiname},'%')</if>
+    	<if test="map.type!=null">and uicode.type=#{map.type}</if>
+    </where> 
+  </select>
+<!-- 2019 -01-27 韩伟其 查询 UICODE、SHOWUI 信息返回listMap 结束-->
+	
+<!-- 2019 -01-27 韩伟其 查询基新增数据所需的静态文件及js方法  开始-->
+  <select id="querybaseCodeListMap" resultType="java.util.Map" parameterType="java.lang.String" >
+    select bc.* from ui_static_code bc, ui_uicode_staticcode ub, ui_uicode uc
+    <where>
+    	uc.ID=ub.UICODE_ID AND ub.STATICODE_ID=bc.ID 
+    	AND uc.ID=#{uiid}
+    </where> 
+  </select>	
+<!-- 2019 -01-27 韩伟其 查询基新增数据所需的静态文件及js方法  结束-->
+</mapper>

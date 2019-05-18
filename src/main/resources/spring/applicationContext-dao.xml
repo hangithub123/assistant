@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-5.0.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-5.0.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-5.0.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-5.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-5.0.xsd ">
+
+	<!-- 加载db.properties文件中的内容，db.properties文件中key命名要有一定的特殊规则 -->
+	<context:property-placeholder location="classpath:db.properties" />
+	<!-- 配置数据源 ，dbcp -->
+
+	<bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource"    
+        destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${cfg.jdbc.minPoolSize}"/>
+		<property name="maxPoolSize" value="${cfg.jdbc.maxPoolSize}"/>
+		<property name="maxIdleTime" value="300"/>
+	</bean>
+	<!-- sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载mybatis的全局配置文件 -->
+		 <property name="configLocation" value="classpath:/mybatis/sqlMapConfig.xml" /> 
+		   <!-- 定义Hibernate的SessionFactory的属性 -->
+		 <!-- <property name="hibernateProperties">
+			<props>
+			<prop key="hibernate.dialect">
+			org.hibernate.dialect.MySQLDialect
+			</prop>
+			<prop key="hibernate.show_sql">true</prop>
+			</props>
+		  </property> --> 
+	</bean>
+		<!-- mapper扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
+		<property name="basePackage" value="pub.basemapper"></property>
+		<!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" /> -->
+	</bean>
+<!-- 配置SqlSessionTemplate -->
+      <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+         <!-- 通过构造函数注入 -->
+         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+      </bean>
+	<bean id="SqlSessionFactoryUtil" class="pub.util.SqlSessionFactoryUtil">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+</beans>

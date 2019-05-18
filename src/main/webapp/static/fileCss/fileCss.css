@@ -1,0 +1,6 @@
+.tdselectedbg{/*表格中td被选中后的背景颜色*/
+	background-color:#82b9d4;
+}
+.uiselectedborder{/*ui片段边框*/
+	border:1px solid #0ABBEF;
+}

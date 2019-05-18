@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_staticCodeMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_staticCode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="SORT" property="sort" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE, CODE, SORT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null"> 
+      and TYPE = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="code != null"> 
+      and CODE = #{code,jdbcType=VARCHAR}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_staticCode" >
+    insert into ui_static_code(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{type,jdbcType=INTEGER}
+        ,#{code,jdbcType=VARCHAR}
+        ,#{sort,jdbcType=VARCHAR}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_staticCode" >
+    insert into ui_static_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "type != null">
+          ,TYPE
+        </if>
+        <if test = "code != null">
+          ,CODE
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "type != null">
+          ,#{type,jdbcType=INTEGER}
+        </if>
+        <if test = "code != null">
+          ,#{code,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=VARCHAR}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_static_code
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_static_code
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_staticCode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_staticCode
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_staticCode"> 
+    update UI_staticCode
+     set
+        <if test = "type != null">
+        TYPE = #{type,jdbcType=INTEGER}
+        </if>
+        <if test = "code != null">
+        ,CODE = #{code,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=VARCHAR}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_staticCode"> 
+    update UI_staticCode
+     set
+              TYPE = #{type,jdbcType=INTEGER}
+        ,      CODE = #{code,jdbcType=VARCHAR}
+        ,      SORT = #{sort,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

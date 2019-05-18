@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.XszgrzMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.Xszgrz" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ZJMC" property="zjmc" jdbcType="VARCHAR" />
+    <result column="FJ" property="fj" jdbcType="VARCHAR" />
+    <result column="ZJSM" property="zjsm" jdbcType="VARCHAR" />
+    <result column="XSBH" property="xsbh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ZJMC, FJ, ZJSM, XSBH
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="zjmc != null"> 
+      and ZJMC = #{zjmc,jdbcType=VARCHAR}
+    </if>
+    <if test="fj != null"> 
+      and FJ = #{fj,jdbcType=VARCHAR}
+    </if>
+    <if test="zjsm != null"> 
+      and ZJSM = #{zjsm,jdbcType=VARCHAR}
+    </if>
+    <if test="xsbh != null"> 
+      and XSBH = #{xsbh,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.Xszgrz" >
+    insert into xszgrz(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{zjmc,jdbcType=VARCHAR}
+        ,#{fj,jdbcType=VARCHAR}
+        ,#{zjsm,jdbcType=VARCHAR}
+        ,#{xsbh,jdbcType=VARCHAR}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.Xszgrz" >
+    insert into xszgrz
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "zjmc != null">
+          ,ZJMC
+        </if>
+        <if test = "fj != null">
+          ,FJ
+        </if>
+        <if test = "zjsm != null">
+          ,ZJSM
+        </if>
+        <if test = "xsbh != null">
+          ,XSBH
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "zjmc != null">
+          ,#{zjmc,jdbcType=VARCHAR}
+        </if>
+        <if test = "fj != null">
+          ,#{fj,jdbcType=VARCHAR}
+        </if>
+        <if test = "zjsm != null">
+          ,#{zjsm,jdbcType=VARCHAR}
+        </if>
+        <if test = "xsbh != null">
+          ,#{xsbh,jdbcType=VARCHAR}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xszgrz
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from xszgrz
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.Xszgrz" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Xszgrz
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.Xszgrz"> 
+    update Xszgrz
+     set
+        <if test = "zjmc != null">
+        ZJMC = #{zjmc,jdbcType=VARCHAR}
+        </if>
+        <if test = "fj != null">
+        ,FJ = #{fj,jdbcType=VARCHAR}
+        </if>
+        <if test = "zjsm != null">
+        ,ZJSM = #{zjsm,jdbcType=VARCHAR}
+        </if>
+        <if test = "xsbh != null">
+        ,XSBH = #{xsbh,jdbcType=VARCHAR}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.Xszgrz"> 
+    update Xszgrz
+     set
+              ZJMC = #{zjmc,jdbcType=VARCHAR}
+        ,      FJ = #{fj,jdbcType=VARCHAR}
+        ,      ZJSM = #{zjsm,jdbcType=VARCHAR}
+        ,      XSBH = #{xsbh,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

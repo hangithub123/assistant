@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_javaCodeMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_javaCode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PROPERTYNAME" property="propertyname" jdbcType="VARCHAR" />
+    <result column="PROPERTYTYPE" property="propertytype" jdbcType="VARCHAR" />
+    <result column="ISINIT" property="isinit" jdbcType="INTEGER" />
+    <result column="METHOD" property="method" jdbcType="VARCHAR" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+    <result column="CREATETIME" property="createtime" jdbcType="BIGINT" />
+    <result column="UI_UICODE_ID" property="uiUicodeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, PROPERTYNAME, PROPERTYTYPE, ISINIT, METHOD, SORT, CREATETIME, UI_UICODE_ID
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null"> 
+      and NAME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="propertyname != null"> 
+      and PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+    </if>
+    <if test="propertytype != null"> 
+      and PROPERTYTYPE = #{propertytype,jdbcType=VARCHAR}
+    </if>
+    <if test="isinit != null"> 
+      and ISINIT = #{isinit,jdbcType=INTEGER}
+    </if>
+    <if test="method != null"> 
+      and METHOD = #{method,jdbcType=VARCHAR}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    <if test="createtime != null"> 
+      and CREATETIME = #{createtime,jdbcType=BIGINT}
+    </if>
+    <if test="uiUicodeId != null"> 
+      and UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_javaCode" >
+    insert into ui_javacode(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{name,jdbcType=VARCHAR}
+        ,#{propertyname,jdbcType=VARCHAR}
+        ,#{propertytype,jdbcType=VARCHAR}
+        ,#{isinit,jdbcType=INTEGER}
+        ,#{method,jdbcType=VARCHAR}
+        ,#{sort,jdbcType=INTEGER}
+        ,#{createtime,jdbcType=BIGINT}
+        ,#{uiUicodeId,jdbcType=VARCHAR}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_javaCode" >
+    insert into ui_javacode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "name != null">
+          ,NAME
+        </if>
+        <if test = "propertyname != null">
+          ,PROPERTYNAME
+        </if>
+        <if test = "propertytype != null">
+          ,PROPERTYTYPE
+        </if>
+        <if test = "isinit != null">
+          ,ISINIT
+        </if>
+        <if test = "method != null">
+          ,METHOD
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+        <if test = "createtime != null">
+          ,CREATETIME
+        </if>
+        <if test = "uiUicodeId != null">
+          ,UI_UICODE_ID
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "name != null">
+          ,#{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "propertyname != null">
+          ,#{propertyname,jdbcType=VARCHAR}
+        </if>
+        <if test = "propertytype != null">
+          ,#{propertytype,jdbcType=VARCHAR}
+        </if>
+        <if test = "isinit != null">
+          ,#{isinit,jdbcType=INTEGER}
+        </if>
+        <if test = "method != null">
+          ,#{method,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+        <if test = "createtime != null">
+          ,#{createtime,jdbcType=BIGINT}
+        </if>
+        <if test = "uiUicodeId != null">
+          ,#{uiUicodeId,jdbcType=VARCHAR}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_javacode
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_javacode
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_javaCode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_javaCode
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_javaCode"> 
+    update UI_javaCode
+     set
+        <if test = "name != null">
+        NAME = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "propertyname != null">
+        ,PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+        </if>
+        <if test = "propertytype != null">
+        ,PROPERTYTYPE = #{propertytype,jdbcType=VARCHAR}
+        </if>
+        <if test = "isinit != null">
+        ,ISINIT = #{isinit,jdbcType=INTEGER}
+        </if>
+        <if test = "method != null">
+        ,METHOD = #{method,jdbcType=VARCHAR}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+        <if test = "createtime != null">
+        ,CREATETIME = #{createtime,jdbcType=BIGINT}
+        </if>
+        <if test = "uiUicodeId != null">
+        ,UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_javaCode"> 
+    update UI_javaCode
+     set
+              NAME = #{name,jdbcType=VARCHAR}
+        ,      PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+        ,      PROPERTYTYPE = #{propertytype,jdbcType=VARCHAR}
+        ,      ISINIT = #{isinit,jdbcType=INTEGER}
+        ,      METHOD = #{method,jdbcType=VARCHAR}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+        ,      CREATETIME = #{createtime,jdbcType=BIGINT}
+        ,      UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

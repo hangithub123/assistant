@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_pageCodeMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_pageCode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROPERTYNAME" property="propertyname" jdbcType="VARCHAR" />
+    <result column="UI_UICODE_ID" property="uiUicodeId" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="BIGINT" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PROPERTYNAME, UI_UICODE_ID, CREATETIME, SORT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="propertyname != null"> 
+      and PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+    </if>
+    <if test="uiUicodeId != null"> 
+      and UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null"> 
+      and CREATETIME = #{createtime,jdbcType=BIGINT}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_pageCode" >
+    insert into ui_pagecode(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{propertyname,jdbcType=VARCHAR}
+        ,#{uiUicodeId,jdbcType=VARCHAR}
+        ,#{createtime,jdbcType=BIGINT}
+        ,#{sort,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_pageCode" >
+    insert into ui_pagecode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "propertyname != null">
+          ,PROPERTYNAME
+        </if>
+        <if test = "uiUicodeId != null">
+          ,UI_UICODE_ID
+        </if>
+        <if test = "createtime != null">
+          ,CREATETIME
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "propertyname != null">
+          ,#{propertyname,jdbcType=VARCHAR}
+        </if>
+        <if test = "uiUicodeId != null">
+          ,#{uiUicodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "createtime != null">
+          ,#{createtime,jdbcType=BIGINT}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_pagecode
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_pagecode
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_pageCode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_pageCode
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_pageCode"> 
+    update UI_pageCode
+     set
+        <if test = "propertyname != null">
+        PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+        </if>
+        <if test = "uiUicodeId != null">
+        ,UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+        </if>
+        <if test = "createtime != null">
+        ,CREATETIME = #{createtime,jdbcType=BIGINT}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_pageCode"> 
+    update UI_pageCode
+     set
+              PROPERTYNAME = #{propertyname,jdbcType=VARCHAR}
+        ,      UI_UICODE_ID = #{uiUicodeId,jdbcType=VARCHAR}
+        ,      CREATETIME = #{createtime,jdbcType=BIGINT}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

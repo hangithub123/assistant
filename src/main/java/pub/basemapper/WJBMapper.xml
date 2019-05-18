@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.WJBMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.WJB" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wjm" property="wjm" jdbcType="VARCHAR" />
+    <result column="wjlx" property="wjlx" jdbcType="VARCHAR" />
+    <result column="bz" property="bz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wjm, wjlx, bz
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="wjm != null"> 
+      and wjm = #{wjm,jdbcType=VARCHAR}
+    </if>
+    <if test="wjlx != null"> 
+      and wjlx = #{wjlx,jdbcType=VARCHAR}
+    </if>
+    <if test="bz != null"> 
+      and bz = #{bz,jdbcType=VARCHAR}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.WJB" >
+    insert into wjb(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{wjm,jdbcType=VARCHAR}
+        ,#{wjlx,jdbcType=VARCHAR}
+        ,#{bz,jdbcType=VARCHAR}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.WJB" >
+    insert into wjb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          id
+        </if>
+        <if test = "wjm != null">
+          ,wjm
+        </if>
+        <if test = "wjlx != null">
+          ,wjlx
+        </if>
+        <if test = "bz != null">
+          ,bz
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "wjm != null">
+          ,#{wjm,jdbcType=VARCHAR}
+        </if>
+        <if test = "wjlx != null">
+          ,#{wjlx,jdbcType=VARCHAR}
+        </if>
+        <if test = "bz != null">
+          ,#{bz,jdbcType=VARCHAR}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wjb
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from wjb
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.WJB" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from WJB
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.WJB"> 
+    update WJB
+     set
+        <if test = "wjm != null">
+        wjm = #{wjm,jdbcType=VARCHAR}
+        </if>
+        <if test = "wjlx != null">
+        ,wjlx = #{wjlx,jdbcType=VARCHAR}
+        </if>
+        <if test = "bz != null">
+        ,bz = #{bz,jdbcType=VARCHAR}
+        </if>
+    where id = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.WJB"> 
+    update WJB
+     set
+              wjm = #{wjm,jdbcType=VARCHAR}
+        ,      wjlx = #{wjlx,jdbcType=VARCHAR}
+        ,      bz = #{bz,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

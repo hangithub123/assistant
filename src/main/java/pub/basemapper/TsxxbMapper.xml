@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.TsxxbMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.Tsxxb" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TSNR" property="tsnr" jdbcType="VARCHAR" />
+    <result column="BTSR" property="btsr" jdbcType="VARCHAR" />
+    <result column="SHDZ" property="shdz" jdbcType="VARCHAR" />
+    <result column="ZT" property="zt" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TSNR, BTSR, SHDZ, ZT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="tsnr != null"> 
+      and TSNR = #{tsnr,jdbcType=VARCHAR}
+    </if>
+    <if test="btsr != null"> 
+      and BTSR = #{btsr,jdbcType=VARCHAR}
+    </if>
+    <if test="shdz != null"> 
+      and SHDZ = #{shdz,jdbcType=VARCHAR}
+    </if>
+    <if test="zt != null"> 
+      and ZT = #{zt,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.Tsxxb" >
+    insert into tsxxb(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{tsnr,jdbcType=VARCHAR}
+        ,#{btsr,jdbcType=VARCHAR}
+        ,#{shdz,jdbcType=VARCHAR}
+        ,#{zt,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.Tsxxb" >
+    insert into tsxxb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "tsnr != null">
+          ,TSNR
+        </if>
+        <if test = "btsr != null">
+          ,BTSR
+        </if>
+        <if test = "shdz != null">
+          ,SHDZ
+        </if>
+        <if test = "zt != null">
+          ,ZT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "tsnr != null">
+          ,#{tsnr,jdbcType=VARCHAR}
+        </if>
+        <if test = "btsr != null">
+          ,#{btsr,jdbcType=VARCHAR}
+        </if>
+        <if test = "shdz != null">
+          ,#{shdz,jdbcType=VARCHAR}
+        </if>
+        <if test = "zt != null">
+          ,#{zt,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tsxxb
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tsxxb
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.Tsxxb" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Tsxxb
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.Tsxxb"> 
+    update Tsxxb
+     set
+        <if test = "tsnr != null">
+        TSNR = #{tsnr,jdbcType=VARCHAR}
+        </if>
+        <if test = "btsr != null">
+        ,BTSR = #{btsr,jdbcType=VARCHAR}
+        </if>
+        <if test = "shdz != null">
+        ,SHDZ = #{shdz,jdbcType=VARCHAR}
+        </if>
+        <if test = "zt != null">
+        ,ZT = #{zt,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.Tsxxb"> 
+    update Tsxxb
+     set
+              TSNR = #{tsnr,jdbcType=VARCHAR}
+        ,      BTSR = #{btsr,jdbcType=VARCHAR}
+        ,      SHDZ = #{shdz,jdbcType=VARCHAR}
+        ,      ZT = #{zt,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

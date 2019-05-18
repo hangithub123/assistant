@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.UI_uicodeMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.UI_uicode" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="UINAME" property="uiname" jdbcType="VARCHAR" />
+    <result column="SHOW_NAME" property="showName" jdbcType="VARCHAR" />
+    <result column="MS" property="ms" jdbcType="VARCHAR" />
+    <result column="UICODE" property="uicode" jdbcType="VARCHAR" />
+    <result column="SHOWUI_ID" property="showuiId" jdbcType="VARCHAR" />
+    <result column="DATE" property="date" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UINAME, SHOW_NAME, MS, UICODE, SHOWUI_ID, DATE, VERSION, TYPE, SORT
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="uiname != null"> 
+      and UINAME = #{uiname,jdbcType=VARCHAR}
+    </if>
+    <if test="showName != null"> 
+      and SHOW_NAME = #{showName,jdbcType=VARCHAR}
+    </if>
+    <if test="ms != null"> 
+      and MS = #{ms,jdbcType=VARCHAR}
+    </if>
+    <if test="uicode != null"> 
+      and UICODE = #{uicode,jdbcType=VARCHAR}
+    </if>
+    <if test="showuiId != null"> 
+      and SHOWUI_ID = #{showuiId,jdbcType=VARCHAR}
+    </if>
+    <if test="date != null"> 
+      and DATE = #{date,jdbcType=VARCHAR}
+    </if>
+    <if test="version != null"> 
+      and VERSION = #{version,jdbcType=INTEGER}
+    </if>
+    <if test="type != null"> 
+      and TYPE = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="sort != null"> 
+      and SORT = #{sort,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.UI_uicode" >
+    insert into ui_uicode(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{uiname,jdbcType=VARCHAR}
+        ,#{showName,jdbcType=VARCHAR}
+        ,#{ms,jdbcType=VARCHAR}
+        ,#{uicode,jdbcType=VARCHAR}
+        ,#{showuiId,jdbcType=VARCHAR}
+        ,#{date,jdbcType=VARCHAR}
+        ,#{version,jdbcType=INTEGER}
+        ,#{type,jdbcType=INTEGER}
+        ,#{sort,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.UI_uicode" >
+    insert into ui_uicode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "uiname != null">
+          ,UINAME
+        </if>
+        <if test = "showName != null">
+          ,SHOW_NAME
+        </if>
+        <if test = "ms != null">
+          ,MS
+        </if>
+        <if test = "uicode != null">
+          ,UICODE
+        </if>
+        <if test = "showuiId != null">
+          ,SHOWUI_ID
+        </if>
+        <if test = "date != null">
+          ,DATE
+        </if>
+        <if test = "version != null">
+          ,VERSION
+        </if>
+        <if test = "type != null">
+          ,TYPE
+        </if>
+        <if test = "sort != null">
+          ,SORT
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "uiname != null">
+          ,#{uiname,jdbcType=VARCHAR}
+        </if>
+        <if test = "showName != null">
+          ,#{showName,jdbcType=VARCHAR}
+        </if>
+        <if test = "ms != null">
+          ,#{ms,jdbcType=VARCHAR}
+        </if>
+        <if test = "uicode != null">
+          ,#{uicode,jdbcType=VARCHAR}
+        </if>
+        <if test = "showuiId != null">
+          ,#{showuiId,jdbcType=VARCHAR}
+        </if>
+        <if test = "date != null">
+          ,#{date,jdbcType=VARCHAR}
+        </if>
+        <if test = "version != null">
+          ,#{version,jdbcType=INTEGER}
+        </if>
+        <if test = "type != null">
+          ,#{type,jdbcType=INTEGER}
+        </if>
+        <if test = "sort != null">
+          ,#{sort,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ui_uicode
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ui_uicode
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.UI_uicode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from UI_uicode
+    <include refid="queryWhere"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.UI_uicode"> 
+    update UI_uicode
+     set
+        <if test = "uiname != null">
+        UINAME = #{uiname,jdbcType=VARCHAR}
+        </if>
+        <if test = "showName != null">
+        ,SHOW_NAME = #{showName,jdbcType=VARCHAR}
+        </if>
+        <if test = "ms != null">
+        ,MS = #{ms,jdbcType=VARCHAR}
+        </if>
+        <if test = "uicode != null">
+        ,UICODE = #{uicode,jdbcType=VARCHAR}
+        </if>
+        <if test = "showuiId != null">
+        ,SHOWUI_ID = #{showuiId,jdbcType=VARCHAR}
+        </if>
+        <if test = "date != null">
+        ,DATE = #{date,jdbcType=VARCHAR}
+        </if>
+        <if test = "version != null">
+        ,VERSION = #{version,jdbcType=INTEGER}
+        </if>
+        <if test = "type != null">
+        ,TYPE = #{type,jdbcType=INTEGER}
+        </if>
+        <if test = "sort != null">
+        ,SORT = #{sort,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.UI_uicode"> 
+    update UI_uicode
+     set
+              UINAME = #{uiname,jdbcType=VARCHAR}
+        ,      SHOW_NAME = #{showName,jdbcType=VARCHAR}
+        ,      MS = #{ms,jdbcType=VARCHAR}
+        ,      UICODE = #{uicode,jdbcType=VARCHAR}
+        ,      SHOWUI_ID = #{showuiId,jdbcType=VARCHAR}
+        ,      DATE = #{date,jdbcType=VARCHAR}
+        ,      VERSION = #{version,jdbcType=INTEGER}
+        ,      TYPE = #{type,jdbcType=INTEGER}
+        ,      SORT = #{sort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>

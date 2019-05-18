@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pub.basemapper.CzybMapper" >
+  <resultMap id="BaseResultMap" type="pub.po.Czyb" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DLH" property="dlh" jdbcType="VARCHAR" />
+    <result column="MM" property="mm" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ROLE" property="role" jdbcType="INTEGER" />
+    <result column="SYBZ" property="sybz" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DLH, MM, EMAIL, ROLE, SYBZ
+  </sql>
+  <sql id="queryWhere">
+    <where>
+    <if test="id != null"> 
+      ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="dlh != null"> 
+      and DLH = #{dlh,jdbcType=VARCHAR}
+    </if>
+    <if test="mm != null"> 
+      and MM = #{mm,jdbcType=VARCHAR}
+    </if>
+    <if test="email != null"> 
+      and EMAIL = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="role != null"> 
+      and ROLE = #{role,jdbcType=INTEGER}
+    </if>
+    <if test="sybz != null"> 
+      and SYBZ = #{sybz,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <sql id="queryWhere1">
+    <where>
+    <if test="record.id != null"> 
+      ID = #{record.id,jdbcType=VARCHAR}
+    </if>
+    <if test="record.dlh != null"> 
+      and DLH = #{record.dlh,jdbcType=VARCHAR}
+    </if>
+    <if test="record.mm != null"> 
+      and MM = #{record.mm,jdbcType=VARCHAR}
+    </if>
+    <if test="record.email != null"> 
+      and EMAIL = #{record.email,jdbcType=VARCHAR}
+    </if>
+    <if test="record.role != null"> 
+      and ROLE = #{record.role,jdbcType=INTEGER}
+    </if>
+    <if test="record.sybz != null"> 
+      and SYBZ = #{record.sybz,jdbcType=INTEGER}
+    </if>
+    </where>
+  </sql> 
+  <insert id="insert" parameterType="pub.po.Czyb" >
+    insert into czyb(<include refid="Base_Column_List" />)
+    values(
+        #{id,jdbcType=VARCHAR}
+        ,#{dlh,jdbcType=VARCHAR}
+        ,#{mm,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR}
+        ,#{role,jdbcType=INTEGER}
+        ,#{sybz,jdbcType=INTEGER}
+        )
+    <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="pub.po.Czyb" >
+    insert into czyb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          ID
+        </if>
+        <if test = "dlh != null">
+          ,DLH
+        </if>
+        <if test = "mm != null">
+          ,MM
+        </if>
+        <if test = "email != null">
+          ,EMAIL
+        </if>
+        <if test = "role != null">
+          ,ROLE
+        </if>
+        <if test = "sybz != null">
+          ,SYBZ
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test = "id != null">
+          #{id,jdbcType=VARCHAR}
+        </if>
+        <if test = "dlh != null">
+          ,#{dlh,jdbcType=VARCHAR}
+        </if>
+        <if test = "mm != null">
+          ,#{mm,jdbcType=VARCHAR}
+        </if>
+        <if test = "email != null">
+          ,#{email,jdbcType=VARCHAR}
+        </if>
+        <if test = "role != null">
+          ,#{role,jdbcType=INTEGER}
+        </if>
+        <if test = "sybz != null">
+          ,#{sybz,jdbcType=INTEGER}
+        </if>
+     </trim>
+	   <selectKey resultType="java.lang.String" order="AFTER" keyProperty="id">SELECT LAST_INSERT_ID()</selectKey>
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from czyb
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from czyb
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByExists" parameterType="pub.po.Czyb" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Czyb
+    <include refid="queryWhere"/> 
+  </select> 
+  <select id="queryByExistsWithPage" parameterType="pub.po.Czyb" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from Czyb
+    <include refid="queryWhere1"/> 
+  </select> 
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="pub.po.Czyb"> 
+    update Czyb
+     set
+        <if test = "dlh != null">
+        DLH = #{dlh,jdbcType=VARCHAR}
+        </if>
+        <if test = "mm != null">
+        ,MM = #{mm,jdbcType=VARCHAR}
+        </if>
+        <if test = "email != null">
+        ,EMAIL = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test = "role != null">
+        ,ROLE = #{role,jdbcType=INTEGER}
+        </if>
+        <if test = "sybz != null">
+        ,SYBZ = #{sybz,jdbcType=INTEGER}
+        </if>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+  <update id="updateByPrimaryKey" parameterType="pub.po.Czyb"> 
+    update Czyb
+     set
+              DLH = #{dlh,jdbcType=VARCHAR}
+        ,      MM = #{mm,jdbcType=VARCHAR}
+        ,      EMAIL = #{email,jdbcType=VARCHAR}
+        ,      ROLE = #{role,jdbcType=INTEGER}
+        ,      SYBZ = #{sybz,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update> 
+</mapper>
